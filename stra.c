@@ -47,8 +47,9 @@ int Str_compare(const char string1[], const char string2[]) {
         /* characters are the same, move on to next character*/
         indexer++; 
     }
-    return (unsigned char) string1[indexer] - (unsigned char)
-     string2[indexer];
+    /* +charint intentional char cast for ASCII conversion */
+    return (int) ((unsigned char) string1[indexer] - (unsigned char)
+     string2[indexer]);
 }
 
 char* Str_search(const char string1[], const char string2[]) {
