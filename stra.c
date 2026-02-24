@@ -63,7 +63,8 @@ char* Str_search(const char string1[], const char string2[]) {
             string2Indexer++;
         }
         if (string2[string2Indexer] == '\0') {
-            return &string1[string1Indexer];
+            /* cast is for getting rid of const */
+            return (char *) &string1[string1Indexer];
         }
         string1Indexer++;
     }
