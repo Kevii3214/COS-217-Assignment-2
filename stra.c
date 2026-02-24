@@ -55,6 +55,10 @@ char* Str_search(const char string1[], const char string2[]) {
     size_t string1Indexer = 0;
     assert(string1 != NULL);
     assert(string2 != NULL);
+    if (string2[0] == '\0') {
+        /* cast is for getting rid of const*/
+        return (char *) string1;
+    }
     while (string1[string1Indexer] != '\0') {
         size_t string2Indexer = 0;
         while (string1[string1Indexer + string2Indexer] == 
