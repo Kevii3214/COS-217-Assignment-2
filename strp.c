@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <assert.h>
-
+/* return length of string string, not including the trailing '\0'. */
 size_t Str_getLength(const char *stringPointerStart)
 {
    const char *stringPointerEnd;
@@ -11,7 +11,7 @@ size_t Str_getLength(const char *stringPointerStart)
       stringPointerEnd++;
    return (size_t)(stringPointerEnd - stringPointerStart);
 }
-
+/* return string 1 after copying string2 onto string1 */
 char* Str_copy(char *string1, const char *string2) {
     char *string1Start = string1;
     assert(string1 != NULL);
@@ -25,7 +25,7 @@ char* Str_copy(char *string1, const char *string2) {
     *string1 = '\0';
     return string1Start;
 }
-
+/* return string1 after concatanating string2 to the end of string1*/
 char* Str_concat(char *string1, const char *string2) {
     /* to prevent magic numbers */
     char *string1Start = string1;
@@ -43,7 +43,7 @@ char* Str_concat(char *string1, const char *string2) {
     *string1 = '\0';
     return string1Start;
 }
-
+/* returns the comparison of string1 to string2 lexicographically */
 int Str_compare(const char *string1, const char *string2) {
     assert(string1 != NULL);
     assert(string2 != NULL);
@@ -57,7 +57,8 @@ int Str_compare(const char *string1, const char *string2) {
     return (int) ((unsigned char) *string1 - (unsigned char)
      *string2);
 }
-
+/* returns a pointer to first character of found string2 in string1 
+by finding the first instance of string2 in string1*/
 char* Str_search(const char string1[], const char string2[]) {
     const char *tempString1;
     const char *tempString2;
