@@ -1,14 +1,14 @@
-/*--------------------------------------------------------------------*/
-/* replace.c                                                          */
-/* Author: ???                                                        */
-/*--------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/* replace.c                                                        */
+/* Author: ???                                                      */
+/*------------------------------------------------------------------*/
 
 #include "str.h"
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 
-/*--------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
 
 /* If pcFrom is the empty string, then write string pcLine to stdout
    and return 0.  Otherwise write string pcLine to stdout with each
@@ -20,10 +20,41 @@
 static size_t replaceAndWrite(const char *pcLine,
                               const char *pcFrom, const char *pcTo)
 {
-   /* Insert your code here. */
+   size_t count = 0;
+   const char *pLine = pcLine;
+   size_t fromLen = Str_getLength(pcFrom);
+
+   assert(pcLine != NULL);
+   assert(pcFrom != NULL);
+   assert(pcTo != NULL);
+
+   /* If pcFrom is empty print the line unchanged. */
+   if (fromLen == 0) {
+      fputs(pcLine, stdout);
+      return 0;
+   }
+
+   while (*pLine != '\0') {
+      const char *match = Str_search(pLine, pcFrom);
+
+      if (match == pLine) {
+         /* Found a match starting at pLine */
+         fputs(pcTo, stdout);
+         count++;
+         pLine += fromLen;   /* Skip past the matched substring */
+      }
+      else {
+         /* No match print one character */
+         fputc(*pLine, stdout);
+         pLine++;
+      }
+   }
+
+   return count;
+
 }
 
-/*--------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
 
 /* If argc is unequal to 3, then write an error message to stderr and
    return EXIT_FAILURE.  Otherwise...
@@ -56,8 +87,9 @@ int main(int argc, char *argv[])
    pcTo = argv[2];
 
    while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL)
-      /* Insert your code here. */
+      uReplaceCount += replaceAndWrite(acLine, pcFrom, pcTo);
 
-   fprintf(stderr, "%lu replacements\n", (unsigned long)uReplaceCount);
+   fprintf(stderr, "%lu replacements\n", 
+      (unsigned long)uReplaceCount);
    return 0;
 }
